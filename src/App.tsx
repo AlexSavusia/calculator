@@ -29,8 +29,8 @@ function App() {
             <Routes>
                 {/* Страницы с сайдбаром */}
                 <Route element={<MainLayout />}>
-                    <Route path="/" element={<IndexPage />} />
-                    {/* сюда добавляй остальные "обычные" страницы */}
+                    <Route index element={<IndexPage />} />
+                    {/* другие обычные страницы сюда */}
                 </Route>
 
                 {/* Страницы без сайдбара */}

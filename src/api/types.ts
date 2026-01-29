@@ -1,7 +1,5 @@
-import type { DropdownOption } from "../components/types.ts";
-import type { BPLProgram } from "@webrise/bpl-wasm/types";
 
-export const VALUE_TYPE_OPTS: { id: BackendFieldType; name: string }[] = [
+export const VALUE_TYPE_OPTS: { id: FieldType; name: string }[] = [
     { id: "Text", name: "Текст" },
     { id: "Boolean", name: "Флаг" },
     { id: "Number", name: "Число" },
@@ -18,9 +16,9 @@ export const FIELD_TYPE_OPTS_MAP: Record<ProgramTemplateField["type"], string> =
     FIELD_TYPE_OPTS.map((o) => [o.id, o.name]),
 ) as Record<ProgramTemplateField["type"], string>;
 
-export const VALUE_TYPE_OPTS_MAP: Record<BackendFieldType, string> = Object.fromEntries(
+export const VALUE_TYPE_OPTS_MAP: Record<FieldType, string> = Object.fromEntries(
     VALUE_TYPE_OPTS.map((o) => [o.id, o.name]),
-) as Record<BackendFieldType, string>;
+) as Record<FieldType, string>;
 
 export type Nullable<T> = T | null;
 
@@ -50,7 +48,7 @@ export function isApiError(x: unknown): x is ApiError {
     return typeof o.type === "string" && typeof o.title === "string";
 }
 
-export type BackendFieldType = "Text" | "Number" | "Boolean" | "Datetime" | "DictionaryLink" ;
+export type FieldType = "Text" | "Number" | "Boolean" | "Datetime" | "DictionaryLink" ;
 
 export type DictionarySchema = {
     id: string;
@@ -63,7 +61,7 @@ export type DictionarySchema = {
 export type DictionarySchemaEntry = {
     id?: string;
     name: string;
-    fieldType: BackendFieldType;
+    fieldType: FieldType;
 };
 
 export type CommonDictionaryValue = {
@@ -114,7 +112,7 @@ export type Formula = {
     id: string;
     name: string;
     description: Nullable<string>;
-    raw: BPLProgram;
+    raw: null;
     descriptor: Nullable<FormulaDescriptor>;
     groupId: Nullable<string>;
 };
@@ -132,7 +130,6 @@ export type ProgramTemplate = {
     fields: ProgramTemplateField[];
 };
 
-export type LoadFn<TItem extends DropdownOption> = (rq: PageableRq, signal?: AbortSignal) => Promise<PageableRs<TItem>>;
 
 export type UpdateProgramTemplate = Partial<Omit<ProgramTemplate, "id">>;
 
@@ -151,7 +148,7 @@ export type AbstractProgramTemplateField = {
 
 export type ProgramTemplateFieldInput = AbstractProgramTemplateField & {
     type: "INPUT";
-    valueType: BackendFieldType;
+    valueType: FieldType;
     editable: boolean;
     required: boolean;
 };
@@ -207,127 +204,3 @@ export type Program = {
 export type CreateProgram = Omit<Program, "id">;
 
 export type UpdateProgram = Partial<Omit<Program, "id" | "programTemplateId">>;
-
-
-export type DictionaryItem = {
-    code: string;
-    label: string;
-    rowId?: string;
-    meta?: Record<string, unknown>;
-};
-
-export type Dictionary = {
-    id: string;
-    title: string;
-    items: DictionaryItem[];
-};
-
-export type VisibilityRule = {
-    field: string;
-    op: "==" | "!=" | "in" | "not_in";
-    value: unknown;
-};
-
-export type Visibility = {
-    when: VisibilityRule[];
-};
-
-export type FieldUI =
-    | { variant?: "tabs" | "pill" }
-    | { showValue?: boolean; inputBox?: boolean }
-    | { placeholder?: string }
-    | Record<string, unknown>;
-
-export type FieldConstraints =
-    | { min?: number; max?: number; step?: number }
-    | { allowedRowIds?: string[] }
-    | Record<string, unknown>;
-
-export type BaseField = {
-    id: string;
-    label: string;
-    required?: boolean;
-    default?: unknown;
-    dictionaryId?: string;
-    ui?: FieldUI;
-    constraints?: FieldConstraints;
-};
-
-export type UiFieldType =
-    | "segmented"
-    | "select"
-    | "slider"
-    | "date"
-    | "checkbox"
-    | "checkbox_group";
-
-export type FieldConfig =
-    | (BaseField & { type: "segmented" })
-    | (BaseField & { type: "select" })
-    | (BaseField & { type: "slider"; constraints?: { min?: number; max?: number; step?: number } })
-    | (BaseField & { type: "date" })
-    | (BaseField & { type: "checkbox" })
-    | (BaseField & { type: "checkbox_group" });
-
-export type SectionConfig = {
-    id: string;
-    title?: string;
-    visibility?: Visibility;
-    fields: FieldConfig[];
-};
-
-export type ActionConfig = {
-    id: string;
-    type: "button";
-    label: string;
-    style?: "primary" | "secondary";
-};
-
-export type SummaryItemConfig = {
-    id: string;
-    label: string;
-    valueBinding: string; // e.g. "result.totalPremium"
-    format?: "money_rub" | "percent" | string;
-};
-
-export type CardConfig = {
-    id: string;
-    title?: string;
-    type: "summary";
-    items: SummaryItemConfig[];
-};
-
-export type ColumnConfig =
-    | {
-    id: "left";
-    title?: string;
-    sections: SectionConfig[];
-    actions?: ActionConfig[];
-}
-    | {
-    id: "right";
-    title?: string;
-    cards: CardConfig[];
-};
-
-export type LayoutConfig = {
-    columns: ColumnConfig[];
-};
-
-export type ResultSchema = Record<string, { type: "number" | "string"; format?: string }>;
-
-export type CalculatorConfig = {
-    formId: string;
-    title: string;
-    version: number;
-    dictionaries: Dictionary[];
-    layout: LayoutConfig;
-    resultSchema: ResultSchema;
-    defaults?: {
-        form?: Record<string, unknown>;
-        result?: Record<string, unknown>;
-    };
-};
-
-export type CalcResult = Record<string, unknown>;
-export type CalcFormValues = Record<string, unknown>;

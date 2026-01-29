@@ -1,52 +1,37 @@
+// src/components/calculator/fields/CheckboxGroupField.tsx
 import { Controller, useFormContext } from "react-hook-form";
-import type { DictionaryItem, FieldConfig } from "../../../api/types";
 
-type Props = {
-    field: Extract<FieldConfig, { type: "checkbox_group" }>;
-    items: DictionaryItem[];
-    hideLabel?: boolean;
-};
+type Opt = { id: string; name: string };
 
-export default function CheckboxGroupField({ field, items, hideLabel }: Props) {
+export function CheckboxGroupField({ name, label, options }: { name: string; label: string; options: Opt[] }) {
     const { control } = useFormContext();
 
     return (
         <Controller
             control={control}
-            name={field.id}
-            render={({ field: rhf }) => {
-                const valueArr = Array.isArray(rhf.value) ? rhf.value.map(String) : [];
-                const set = new Set(valueArr);
+            name={name}
+            defaultValue={[]}
+            render={({ field }) => {
+                const arr = Array.isArray(field.value) ? (field.value as string[]) : [];
+                const set = new Set(arr);
 
-                function toggle(code: string) {
+                function toggle(id: string) {
                     const next = new Set(set);
-                    if (next.has(code)) next.delete(code);
-                    else next.add(code);
-                    rhf.onChange(Array.from(next));
+                    if (next.has(id)) next.delete(id);
+                    else next.add(id);
+                    field.onChange(Array.from(next));
                 }
 
                 return (
-                    <div>
-                        {!hideLabel ? (
-                            <div style={{ marginBottom: 10, fontWeight: 600 }}>{field.label}</div>
-                        ) : null}
-
-                        <div style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
-                            {items.map((it) => {
-                                const checked = set.has(it.code);
-
-                                return (
-                                    <label key={it.code} style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                                        <input
-                                            type="checkbox"
-                                            checked={checked}
-                                            onChange={() => toggle(it.code)}
-                                            style={{ width: 18, height: 18 }}
-                                        />
-                                        <span style={{ fontSize: 13 }}>{it.label}</span>
-                                    </label>
-                                );
-                            })}
+                    <div style={{ display: "grid", gap: 8 }}>
+                        <div style={{ fontWeight: 600 }}>{label}</div>
+                        <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+                            {options.map((o) => (
+                                <label key={o.id} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                                    <input type="checkbox" checked={set.has(o.id)} onChange={() => toggle(o.id)} />
+                                    <span>{o.name}</span>
+                                </label>
+                            ))}
                         </div>
                     </div>
                 );

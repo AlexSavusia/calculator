@@ -1,64 +1,44 @@
+// src/components/calculator/fields/SegmentedField.tsx
 import { Controller, useFormContext } from "react-hook-form";
-import type { DictionaryItem, FieldConfig } from "../../../api/types";
 
-type Props = {
-    field: Extract<FieldConfig, { type: "segmented" }>;
-    items: DictionaryItem[];
-    hideLabel?: boolean;
-};
+type Opt = { id: string; name: string };
 
-export default function SegmentedField({ field, items, hideLabel }: Props) {
+export function SegmentedField({ name, label, options }: { name: string; label: string; options: Opt[] }) {
     const { control } = useFormContext();
 
     return (
         <Controller
             control={control}
-            name={field.id}
-            render={({ field: rhf }) => {
-                const value = String(rhf.value ?? "");
-
-                return (
-                    <div>
-                        {!hideLabel ? (
-                            <div style={{ marginBottom: 8, fontWeight: 600 }}>{field.label}</div>
-                        ) : null}
-
-                        <div
-                            style={{
-                                display: "grid",
-                                gridAutoFlow: "column",
-                                gridAutoColumns: "1fr",
-                                gap: 8,
-                                padding: 6,
-                                border: "1px solid #e5e7eb",
-                                borderRadius: 12,
-                            }}
-                        >
-                            {items.map((it) => {
-                                const active = it.code === value;
-
-                                return (
-                                    <button
-                                        key={it.code}
-                                        type="button"
-                                        onClick={() => rhf.onChange(it.code)}
-                                        style={{
-                                            padding: "10px 12px",
-                                            borderRadius: 10,
-                                            border: active ? "1px solid #2563eb" : "1px solid transparent",
-                                            background: active ? "rgba(37,99,235,0.08)" : "transparent",
-                                            cursor: "pointer",
-                                            fontWeight: 600,
-                                        }}
-                                    >
-                                        {it.label}
-                                    </button>
-                                );
-                            })}
-                        </div>
+            name={name}
+            defaultValue={options[0]?.id}
+            render={({ field }) => (
+                <div style={{ display: "grid", gap: 8 }}>
+                    <div style={{ fontWeight: 600 }}>{label}</div>
+                    <div style={{ display: "flex", border: "1px solid #ddd", borderRadius: 10, overflow: "hidden" }}>
+                        {options.map((o) => {
+                            const active = field.value === o.id;
+                            return (
+                                <button
+                                    key={o.id}
+                                    type="button"
+                                    onClick={() => field.onChange(o.id)}
+                                    style={{
+                                        flex: 1,
+                                        height: 40,
+                                        border: "none",
+                                        background: active ? "#e9f2ff" : "white",
+                                        color: active ? "#0b5bd3" : "#222",
+                                        fontWeight: 600,
+                                        cursor: "pointer",
+                                    }}
+                                >
+                                    {o.name}
+                                </button>
+                            );
+                        })}
                     </div>
-                );
-            }}
+                </div>
+            )}
         />
     );
 }

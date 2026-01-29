@@ -1,6 +1,3 @@
-export * from "./types";
-export * from "./calculator";
-
 import axios, { AxiosError } from "axios";
 import {
     type ApiError,
@@ -316,3 +313,16 @@ export const getProgram = async (id: string, signal?: AbortSignal): Promise<Prog
 
 export const getPrograms = async (rq: PageableRq, signal?: AbortSignal): Promise<PageableRs<Program>> =>
     (await api.get(`/program${toQueryString(rq)}`, { signal })).data;
+
+export const getDictionarySchema = (dictId: string, signal?: AbortSignal): Promise<DictionarySchema> =>
+    getDictionary(dictId, signal);
+
+// rows справочника: UI хочет (dictId, rq), а API у тебя (rq, dictId)
+export const getDictionaryRowsByDictId = (
+    dictId: string,
+    rq: PageableRq,
+    signal?: AbortSignal,
+): Promise<PageableRs<DictionaryRow>> => getDictionaryRows(rq, dictId, signal);
+
+// program by id (если нужно)
+export const getProgramById = (id: string, signal?: AbortSignal): Promise<Program> => getProgram(id, signal);
