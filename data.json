@@ -1,0 +1,597 @@
+{
+  "formId": "insurance-calculator",
+  "title": "Калькулятор",
+  "version": 4,
+
+  "programs": {
+    "items": [
+      {
+        "id": "019c0ae3-6b17-734c-9a36-e5e242ed5aba",
+        "programTemplateId": "019c0ab9-fa94-77b3-aaf4-601f3447ecd6",
+        "name": "Авантаж 5.1",
+        "description": null,
+        "fields": [
+          {
+            "type": "INPUT",
+            "value": null,
+            "valueType": "Text",
+            "editable": true,
+            "required": false,
+            "code": "obschaya_informatsiya",
+            "name": "Общая информация",
+            "constraints": []
+          },
+          {
+            "type": "DICT_INPUT",
+            "allowedRows": [],
+            "dictId": "019c0ab2-cbfa-7bdf-8cea-82d510452a25",
+            "required": false,
+            "code": "tehnologiya_prodazh",
+            "name": "Технология продаж",
+            "constraints": []
+          },
+          {
+            "type": "DICT_INPUT",
+            "allowedRows": [],
+            "dictId": "019c0ab0-bbc4-7ad5-90c0-1507569ad9dc",
+            "required": false,
+            "code": "parametry_dogovora",
+            "name": "Параметры договора",
+            "constraints": []
+          },
+          {
+            "type": "DICT_INPUT",
+            "allowedRows": [],
+            "dictId": "019c0ab4-46c3-7762-be10-6760c9680890",
+            "required": false,
+            "code": "oplata",
+            "name": "Оплата",
+            "constraints": []
+          },
+          {
+            "type": "DICT_INPUT",
+            "allowedRows": [],
+            "dictId": "019c0ab6-0702-7084-8ef3-0e19c7eefdfc",
+            "required": false,
+            "code": "riski_i_ogranicheniya",
+            "name": "Риски и ограничения",
+            "constraints": []
+          },
+          {
+            "type": "DICT_INPUT",
+            "allowedRows": [],
+            "dictId": "019c0ab6-9604-7036-bd12-3eb0eb92a598",
+            "required": false,
+            "code": "servis",
+            "name": "Сервис",
+            "constraints": []
+          }
+        ]
+      },
+      {
+        "id": "019c0ae3-e4bd-70ea-9ed7-a2dc46f94770",
+        "programTemplateId": "019c0ab9-fa94-77b3-aaf4-601f3447ecd6",
+        "name": "Авантаж 5.2",
+        "description": null,
+        "fields": [
+          {
+            "type": "INPUT",
+            "value": null,
+            "valueType": "Text",
+            "editable": true,
+            "required": false,
+            "code": "obschaya_informatsiya",
+            "name": "Общая информация",
+            "constraints": []
+          },
+          {
+            "type": "DICT_INPUT",
+            "allowedRows": [],
+            "dictId": "019c0ab2-cbfa-7bdf-8cea-82d510452a25",
+            "required": false,
+            "code": "tehnologiya_prodazh",
+            "name": "Технология продаж",
+            "constraints": []
+          },
+          {
+            "type": "DICT_INPUT",
+            "allowedRows": [],
+            "dictId": "019c0ab0-bbc4-7ad5-90c0-1507569ad9dc",
+            "required": false,
+            "code": "parametry_dogovora",
+            "name": "Параметры договора",
+            "constraints": []
+          },
+          {
+            "type": "DICT_INPUT",
+            "allowedRows": [],
+            "dictId": "019c0ab4-46c3-7762-be10-6760c9680890",
+            "required": false,
+            "code": "oplata",
+            "name": "Оплата",
+            "constraints": []
+          },
+          {
+            "type": "DICT_INPUT",
+            "allowedRows": [],
+            "dictId": "019c0ab6-0702-7084-8ef3-0e19c7eefdfc",
+            "required": false,
+            "code": "riski_i_ogranicheniya",
+            "name": "Риски и ограничения",
+            "constraints": []
+          },
+          {
+            "type": "DICT_INPUT",
+            "allowedRows": [],
+            "dictId": "019c0ab6-9604-7036-bd12-3eb0eb92a598",
+            "required": false,
+            "code": "servis",
+            "name": "Сервис",
+            "constraints": []
+          }
+        ]
+      }
+    ],
+    "defaultProgramId": "019c0ae3-6b17-734c-9a36-e5e242ed5aba"
+  },
+
+  "backendModel": {
+    "program": {
+      "id": "019c0ae3-6b17-734c-9a36-e5e242ed5aba",
+      "programTemplateId": "019c0ab9-fa94-77b3-aaf4-601f3447ecd6",
+      "name": "Авантаж 5.1"
+    },
+    "programTemplate": {
+      "id": "019c0ab9-fa94-77b3-aaf4-601f3447ecd6",
+      "name": "ПАСПОРТ «Авантаж 5.1»"
+    },
+
+    "fieldsByCode": {
+      "obschaya_informatsiya": { "type": "INPUT", "valueType": "Text", "dictId": null },
+      "tehnologiya_prodazh": { "type": "DICT_INPUT", "dictId": "019c0ab2-cbfa-7bdf-8cea-82d510452a25" },
+      "parametry_dogovora": { "type": "DICT_INPUT", "dictId": "019c0ab0-bbc4-7ad5-90c0-1507569ad9dc" },
+      "oplata": { "type": "DICT_INPUT", "dictId": "019c0ab4-46c3-7762-be10-6760c9680890" },
+      "riski_i_ogranicheniya": { "type": "DICT_INPUT", "dictId": "019c0ab6-0702-7084-8ef3-0e19c7eefdfc" },
+      "servis": { "type": "DICT_INPUT", "dictId": "019c0ab6-9604-7036-bd12-3eb0eb92a598" }
+    }
+  },
+
+  "bindings": {
+    "dictionaryValueMode": "code",
+    "dictionaryRowIdKey": "rowId",
+    "dictionaryCodeKey": "code",
+
+    "programDictInput": {
+      "single": {
+        "formValue": "code",
+        "backendValue": { "type": "DICT_INPUT_SELECTED", "store": "code" }
+      },
+      "multiple": {
+        "formValue": ["code"],
+        "backendValue": { "type": "DICT_INPUT_SELECTED", "store": "codes" }
+      },
+      "allowedRows": {
+        "source": "program.fields[].allowedRows",
+        "applyAs": "constraints.allowedRowIds"
+      }
+    },
+
+    "programSelection": {
+      "formFieldId": "programId",
+      "bindTo": "backendModel.program.id",
+      "defaultFrom": "programs.defaultProgramId"
+    }
+  },
+
+  "dictionaries": [
+    {
+      "id": "calc_type",
+      "title": "Тип расчёта",
+      "source": { "type": "PROGRAMS_AS_CALC_TYPES" },
+      "items": [
+        { "code": "019c0ae3-6b17-734c-9a36-e5e242ed5aba", "label": "Авантаж 5.1" },
+        { "code": "019c0ae3-e4bd-70ea-9ed7-a2dc46f94770", "label": "Авантаж 5.2" }
+      ]
+    },
+    {
+      "id": "gender",
+      "title": "Пол",
+      "source": { "type": "STATIC" },
+      "items": [
+        { "code": "M", "label": "Мужчина" },
+        { "code": "F", "label": "Женщина" }
+      ]
+    },
+
+    {
+      "id": "insurance_variant",
+      "title": "Вариант страхования",
+      "source": {
+        "type": "BACKEND_DICTIONARY",
+        "dictId": "019c0ab0-bbc4-7ad5-90c0-1507569ad9dc",
+        "schema": [
+          { "id": "85cdda01-5d6f-4778-b49c-56d619eaa6af", "name": "code", "fieldType": "Text" },
+          { "id": "e33314c2-3c23-4fb6-b58d-7c3e7f87c698", "name": "name", "fieldType": "Text" }
+        ],
+        "valueFieldId": "85cdda01-5d6f-4778-b49c-56d619eaa6af",
+        "labelFieldId": "e33314c2-3c23-4fb6-b58d-7c3e7f87c698"
+      },
+      "items": [
+        { "rowId": "019c0ab2-3bef-7175-9132-2e5d155f4855", "code": "01", "label": "«Единовременная выплата»" },
+        { "rowId": "019c0ab2-6193-7718-ae94-a71ca03e5bba", "code": "02", "label": "«Отложенная выплата»" }
+      ]
+    },
+
+    {
+      "id": "sales_channel",
+      "title": "Канал продаж",
+      "source": {
+        "type": "BACKEND_DICTIONARY",
+        "dictId": "019c0ab2-cbfa-7bdf-8cea-82d510452a25",
+        "schema": [
+          { "id": "4c374748-78e8-4edf-a66e-ed96a0367a2f", "name": "code", "fieldType": "Text" },
+          { "id": "d75e9ad7-cc62-4726-85c4-716740f63beb", "name": "name", "fieldType": "Text" }
+        ],
+        "valueFieldId": "4c374748-78e8-4edf-a66e-ed96a0367a2f",
+        "labelFieldId": "d75e9ad7-cc62-4726-85c4-716740f63beb"
+      },
+      "items": [
+        { "rowId": "019c0ab3-11ba-7905-8016-c8649be46c8d", "code": "URB", "label": "Управление регионального бизнеса (УРБ)" },
+        { "rowId": "019c0ab3-3e16-76f5-9d0c-5fdb04f39296", "code": "CUP", "label": "ЦУП … (Отдел управления региональным портфелем)" }
+      ]
+    },
+
+    {
+      "id": "payment_period",
+      "title": "Периодичность уплаты",
+      "source": {
+        "type": "BACKEND_DICTIONARY",
+        "dictId": "019c0ab4-46c3-7762-be10-6760c9680890",
+        "schema": [
+          { "id": "b669e7a3-04b8-4853-9e20-22412cf3a69e", "name": "code", "fieldType": "Text" },
+          { "id": "c65f11fb-118c-47b0-a07a-01029a60cd49", "name": "name", "fieldType": "Text" },
+          { "id": "672024c0-cbe7-4312-bf20-6e535ae39b05", "name": "minPremium", "fieldType": "Number" }
+        ],
+        "valueFieldId": "b669e7a3-04b8-4853-9e20-22412cf3a69e",
+        "labelFieldId": "c65f11fb-118c-47b0-a07a-01029a60cd49"
+      },
+      "items": [
+        { "rowId": "019c0abe-7ba6-7d22-8b50-a66617483004", "code": "YEAR", "label": "Ежегодно", "meta": { "minPremium": 25000 } },
+        { "rowId": "019c0abe-b586-795d-abb2-b79fab927bd3", "code": "HALF", "label": "Раз в полгода", "meta": { "minPremium": 15000 } }
+      ]
+    },
+
+    {
+      "id": "risk",
+      "title": "Дополнительные риски",
+      "source": {
+        "type": "BACKEND_DICTIONARY",
+        "dictId": "019c0ab6-0702-7084-8ef3-0e19c7eefdfc",
+        "schema": [
+          { "id": "457b6a53-f57c-4cc1-b7e9-7e0bf7676b6a", "name": "code", "fieldType": "Text" },
+          { "id": "63beb85d-29a3-42ed-9d43-81d4b0be4481", "name": "name", "fieldType": "Text" },
+          { "id": "9cc1af25-4ef8-4f62-a1e0-0862e7e0d303", "name": "group", "fieldType": "Text" },
+          { "id": "1b7d614f-4e2c-4991-b36d-68a8deecb5c6", "name": "variantAllowed", "fieldType": "Text" },
+          { "id": "6c2d866a-0a51-4b22-b9d1-defdc5b56a9c", "name": "limitRule", "fieldType": "Text" }
+        ],
+        "valueFieldId": "457b6a53-f57c-4cc1-b7e9-7e0bf7676b6a",
+        "labelFieldId": "63beb85d-29a3-42ed-9d43-81d4b0be4481"
+      },
+      "items": [
+        {
+          "rowId": "019c0abf-24a7-7de1-9bbc-60762b68efa9",
+          "code": "DEATH_NS",
+          "label": "полное название риска",
+          "meta": { "group": "Смерть", "variantAllowed": "01", "limitRule": "не более 1/2 СС по основной" }
+        },
+        {
+          "rowId": "019c0abf-971c-71f5-a94a-66516feadcf4",
+          "code": "TRAUMA",
+          "label": "полное название риска2",
+          "meta": { "group": "Инвалидность", "variantAllowed": "02", "limitRule": "не более 1 СС по основной, и не более 1 000" }
+        }
+      ]
+    },
+
+    {
+      "id": "service",
+      "title": "Сервисные опции",
+      "source": {
+        "type": "BACKEND_DICTIONARY",
+        "dictId": "019c0ab6-9604-7036-bd12-3eb0eb92a598",
+        "schema": [
+          { "id": "bf32e234-c5cd-41aa-91bd-be33ea985d13", "name": "code", "fieldType": "Text" },
+          { "id": "c987cf99-d081-40b5-a73d-bfb3633c0f03", "name": "name", "fieldType": "Text" },
+          { "id": "e7e99269-ee10-431e-afdb-d1c659414a1b", "name": "provider", "fieldType": "Text" },
+          { "id": "76d56303-44c7-4ae3-a249-7d48ebf3d698", "name": "pricePerYear", "fieldType": "Number" }
+        ],
+        "valueFieldId": "bf32e234-c5cd-41aa-91bd-be33ea985d13",
+        "labelFieldId": "c987cf99-d081-40b5-a73d-bfb3633c0f03"
+      },
+      "items": [
+        {
+          "rowId": "019c0ac0-1238-7751-bb6b-a5ec1ff6920e",
+          "code": "LS_SNV",
+          "label": "Социальный налоговый вычет",
+          "meta": { "provider": "ООО «Юридические решения» / ООО «ДМО»", "pricePerYear": 600 }
+        },
+        {
+          "rowId": "019c0ac0-5cc7-7839-804a-ce628f875bfa",
+          "code": "LS_TELEMED",
+          "label": "Телемедицина",
+          "meta": { "provider": "ООО «ДМО»", "pricePerYear": 170 }
+        }
+      ]
+    }
+  ],
+
+  "layout": {
+    "columns": [
+      {
+        "id": "left",
+        "title": "Параметры расчёта",
+        "sections": [
+          {
+            "id": "calc_params",
+            "title": "Параметры расчёта",
+            "fields": [
+              {
+                "id": "programId",
+                "type": "segmented",
+                "label": "Тип расчёта",
+                "dictionaryId": "calc_type",
+                "default": "019c0ae3-6b17-734c-9a36-e5e242ed5aba",
+                "required": true,
+                "ui": { "variant": "tabs" },
+                "backend": {
+                  "scope": "PROGRAM_META",
+                  "persist": true,
+                  "bindTo": "backendModel.program.id"
+                }
+              },
+
+              {
+                "id": "insuranceVariant",
+                "type": "segmented",
+                "label": "Вариант страхования",
+                "dictionaryId": "insurance_variant",
+                "default": "01",
+                "required": true,
+                "ui": { "variant": "tabs" },
+                "backend": {
+                  "scope": "PROGRAM",
+                  "fieldCode": "parametry_dogovora",
+                  "backendFieldType": "DICT_INPUT",
+                  "dictId": "019c0ab0-bbc4-7ad5-90c0-1507569ad9dc",
+                  "valueMode": "code",
+                  "multiple": false
+                }
+              },
+
+              {
+                "id": "paymentPeriod",
+                "type": "select",
+                "label": "Периодичность уплаты взносов",
+                "dictionaryId": "payment_period",
+                "default": "YEAR",
+                "required": true,
+                "ui": { "placeholder": "Периодичность" },
+                "backend": {
+                  "scope": "PROGRAM",
+                  "fieldCode": "oplata",
+                  "backendFieldType": "DICT_INPUT",
+                  "dictId": "019c0ab4-46c3-7762-be10-6760c9680890",
+                  "valueMode": "code",
+                  "multiple": false
+                }
+              },
+
+              {
+                "id": "insuranceSum",
+                "type": "slider",
+                "label": "Страховая сумма",
+                "required": true,
+                "default": 100,
+                "constraints": { "min": 10, "max": 1000, "step": 10 },
+                "ui": { "showValue": true, "inputBox": true },
+                "backend": { "scope": "CALCULATOR_LOCAL", "persist": false }
+              }
+            ]
+          },
+
+          {
+            "id": "sales",
+            "title": "Технология продаж",
+            "fields": [
+              {
+                "id": "salesChannel",
+                "type": "select",
+                "label": "Канал продаж",
+                "dictionaryId": "sales_channel",
+                "default": "CUP",
+                "required": false,
+                "ui": { "placeholder": "Выберите канал" },
+                "constraints": {
+                  "allowedRowIds": [
+                    "019c0ab3-3e16-76f5-9d0c-5fdb04f39296",
+                    "019c0ab3-11ba-7905-8016-c8649be46c8d"
+                  ]
+                },
+                "backend": {
+                  "scope": "PROGRAM",
+                  "fieldCode": "tehnologiya_prodazh",
+                  "backendFieldType": "DICT_INPUT",
+                  "dictId": "019c0ab2-cbfa-7bdf-8cea-82d510452a25",
+                  "allowedRowIdsFromProgram": true,
+                  "valueMode": "code",
+                  "multiple": false
+                }
+              }
+            ]
+          },
+
+          {
+            "id": "insured",
+            "title": "Застрахованный",
+            "fields": [
+              {
+                "id": "insuredBirthDate",
+                "type": "date",
+                "label": "Дата рождения",
+                "required": true,
+                "backend": { "scope": "CALCULATOR_LOCAL", "persist": false }
+              },
+              {
+                "id": "insuredGender",
+                "type": "segmented",
+                "label": "Пол",
+                "dictionaryId": "gender",
+                "default": "M",
+                "required": true,
+                "ui": { "variant": "pill" },
+                "backend": { "scope": "CALCULATOR_LOCAL", "persist": false }
+              },
+              {
+                "id": "isDifferentPersons",
+                "type": "checkbox",
+                "label": "Застрахованный и Страхователь являются разными лицами",
+                "default": false,
+                "backend": { "scope": "CALCULATOR_LOCAL", "persist": false }
+              }
+            ]
+          },
+
+          {
+            "id": "policyholder",
+            "title": "Страхователь",
+            "visibility": { "when": [{ "field": "isDifferentPersons", "op": "==", "value": true }] },
+            "fields": [
+              {
+                "id": "policyholderBirthDate",
+                "type": "date",
+                "label": "Дата рождения",
+                "required": true,
+                "backend": { "scope": "CALCULATOR_LOCAL", "persist": false }
+              },
+              {
+                "id": "policyholderGender",
+                "type": "segmented",
+                "label": "Пол",
+                "dictionaryId": "gender",
+                "default": "M",
+                "required": true,
+                "ui": { "variant": "pill" },
+                "backend": { "scope": "CALCULATOR_LOCAL", "persist": false }
+              }
+            ]
+          },
+
+          {
+            "id": "risks_section",
+            "title": "Риски и ограничения",
+            "fields": [
+              {
+                "id": "additionalRisks",
+                "type": "checkbox_group",
+                "label": "Выберите риски",
+                "dictionaryId": "risk",
+                "default": ["DEATH_NS", "TRAUMA"],
+                "backend": {
+                  "scope": "PROGRAM",
+                  "fieldCode": "riski_i_ogranicheniya",
+                  "backendFieldType": "DICT_INPUT",
+                  "dictId": "019c0ab6-0702-7084-8ef3-0e19c7eefdfc",
+                  "valueMode": "code",
+                  "multiple": true
+                }
+              }
+            ]
+          },
+
+          {
+            "id": "service_section",
+            "title": "Сервис",
+            "fields": [
+              {
+                "id": "serviceOptions",
+                "type": "checkbox_group",
+                "label": "Сервисные опции",
+                "dictionaryId": "service",
+                "default": ["LS_SNV"],
+                "backend": {
+                  "scope": "PROGRAM",
+                  "fieldCode": "servis",
+                  "backendFieldType": "DICT_INPUT",
+                  "dictId": "019c0ab6-9604-7036-bd12-3eb0eb92a598",
+                  "valueMode": "code",
+                  "multiple": true
+                }
+              }
+            ]
+          }
+        ],
+
+        "actions": [
+          { "id": "calculate", "type": "button", "label": "Рассчитать", "style": "primary" }
+        ]
+      },
+
+      {
+        "id": "right",
+        "title": "Параметры полиса",
+        "cards": [
+          {
+            "id": "premium_card",
+            "title": "Параметры полиса",
+            "type": "summary",
+            "items": [
+              { "id": "basePremium", "label": "Премия по основной программе", "valueBinding": "result.basePremium", "format": "money_rub" },
+              { "id": "totalPremium", "label": "Общая премия", "valueBinding": "result.totalPremium", "format": "money_rub" }
+            ]
+          },
+          {
+            "id": "rates_card",
+            "type": "summary",
+            "items": [
+              { "id": "guaranteedYield", "label": "Гарантированная норма доходности", "valueBinding": "result.guaranteedYield", "format": "percent" },
+              { "id": "load", "label": "Нагрузка", "valueBinding": "result.load", "format": "percent" },
+              { "id": "net", "label": "Нетто", "valueBinding": "result.net", "format": "percent" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  "resultSchema": {
+    "basePremium": { "type": "number", "format": "money_rub" },
+    "totalPremium": { "type": "number", "format": "money_rub" },
+    "guaranteedYield": { "type": "number", "format": "percent" },
+    "load": { "type": "number", "format": "percent" },
+    "net": { "type": "number", "format": "percent" }
+  },
+
+  "defaults": {
+    "form": {
+      "programId": "019c0ae3-6b17-734c-9a36-e5e242ed5aba",
+      "insuranceVariant": "01",
+      "paymentPeriod": "YEAR",
+      "insuranceSum": 100,
+      "salesChannel": "CUP",
+      "insuredBirthDate": null,
+      "insuredGender": "M",
+      "isDifferentPersons": false,
+      "policyholderBirthDate": null,
+      "policyholderGender": "M",
+      "additionalRisks": ["DEATH_NS", "TRAUMA"],
+      "serviceOptions": ["LS_SNV"]
+    },
+    "result": {
+      "basePremium": 15670.59,
+      "totalPremium": 15895.59,
+      "guaranteedYield": 8.0,
+      "load": 9.33,
+      "net": 90.67
+    }
+  }
+}
