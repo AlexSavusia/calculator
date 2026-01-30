@@ -69,16 +69,6 @@ export function CalculatorForm({ program }: Props) {
                     <div style={{ display: "grid", gap: 18 }}>
                         <div style={{ fontWeight: 700, opacity: 0.8 }}>Параметры расчета</div>
 
-                        {/* Пример хардкода сегментов под дизайн */}
-                        <SegmentedField
-                            name="calc_mode"
-                            label="Тип расчета"
-                            options={[
-                                { id: "by_sum", name: "По страховой сумме" },
-                                { id: "by_premium", name: "По премии" },
-                            ]}
-                        />
-
                         {/* DICT_INPUT: tip_rascheta */}
                         {dictFields.map((f) => (
                             <DictProgramField key={f.code} field={f} />
