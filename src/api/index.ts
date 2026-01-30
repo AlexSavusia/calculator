@@ -161,6 +161,19 @@ function normalizeCreateProgramTemplate(rq: CreateProgramTemplate): CreateProgra
  * ============================================================
  */
 
+
+export type FormulaRunResponse = {
+    result: Record<string, number>;
+};
+
+export const runFormula = async (
+    formulaId: string,
+    payload: unknown,
+    signal?: AbortSignal,
+): Promise<FormulaRunResponse> =>
+    (await api.post<FormulaRunResponse>(`/formula/${formulaId}/run`, payload, { signal })).data;
+
+
 export const getDictionaryRows = async (
     rq: PageableRq,
     dictId: string,

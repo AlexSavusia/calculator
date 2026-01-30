@@ -1,21 +1,25 @@
-// src/components/calculator/CalculatorSummary.tsx
 import { useWatch, useFormContext } from "react-hook-form";
 import { buildPayload } from "./buildPayload";
+import type { FormulaRunResponse } from "../../api";
 
-export function CalculatorSummary() {
+type Props = {
+    formulaRes?: FormulaRunResponse | null;
+};
+
+export function CalculatorSummary({ formulaRes }: Props) {
     const { control } = useFormContext();
     const values = useWatch({ control });
 
-    const premiumMain = 1560;
-    const premiumTotal = 1585;
-
-    // ✅ safe build (чтобы не падало, если данных ещё нет)
+    // payload для debug (то что реально уйдет на бэк)
     let payload: any = null;
     try {
         payload = buildPayload(values as any);
     } catch {
         payload = null;
     }
+
+    const premiumMain = formulaRes?.result?.Premium_main;
+    const totalSum = formulaRes?.result?.Sum;
 
     return (
         <div style={{ display: "grid", gap: 12 }}>
@@ -28,11 +32,20 @@ export function CalculatorSummary() {
                 <div style={{ display: "grid", gap: 6 }}>
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                         <span style={{ opacity: 0.7 }}>Премия по основной программе</span>
-                        <b>{premiumMain.toLocaleString("ru-RU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₽</b>
+                        <b>
+                            {typeof premiumMain === "number"
+                                ? premiumMain.toLocaleString("ru-RU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                                : "—"}
+                        </b>
                     </div>
+
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                         <span style={{ opacity: 0.7 }}>Общая премия</span>
-                        <b>{premiumTotal.toLocaleString("ru-RU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₽</b>
+                        <b>
+                            {typeof totalSum === "number"
+                                ? totalSum.toLocaleString("ru-RU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                                : "—"}
+                        </b>
                     </div>
                 </div>
             </div>
@@ -41,18 +54,19 @@ export function CalculatorSummary() {
                 <summary>debug</summary>
 
                 <div style={{ marginTop: 10, display: "grid", gap: 10 }}>
-            {/*        <div>*/}
-            {/*            <div style={{ fontWeight: 700, marginBottom: 6 }}>form values</div>*/}
-            {/*            <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>*/}
-            {/*  {JSON.stringify(values, null, 2)}*/}
-            {/*</pre>*/}
-            {/*        </div>*/}
-
                     <div>
                         <div style={{ fontWeight: 700, marginBottom: 6 }}>payload (args)</div>
-                        <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
-              {JSON.stringify(payload, null, 2)}
-            </pre>
+                        <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>{JSON.stringify(payload, null, 2)}</pre>
+                    </div>
+
+                    <div>
+                        <div style={{ fontWeight: 700, marginBottom: 6 }}>formula/run response</div>
+                        <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>{JSON.stringify(formulaRes, null, 2)}</pre>
+                    </div>
+
+                    <div>
+                        <div style={{ fontWeight: 700, marginBottom: 6 }}>form values</div>
+                        <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>{JSON.stringify(values, null, 2)}</pre>
                     </div>
                 </div>
             </details>
