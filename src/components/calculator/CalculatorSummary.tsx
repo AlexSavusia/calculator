@@ -4,9 +4,10 @@ import type { FormulaRunResponse } from "../../api";
 
 type Props = {
     formulaRes?: FormulaRunResponse | null;
+    isLoading?: boolean;
 };
 
-export function CalculatorSummary({ formulaRes }: Props) {
+export function CalculatorSummary({ formulaRes, isLoading }: Props) {
     const { control } = useFormContext();
     const values = useWatch({ control });
 
@@ -25,11 +26,28 @@ export function CalculatorSummary({ formulaRes }: Props) {
         <div style={{ display: "grid", gap: 12 }}>
             <div style={{ border: "1px solid #eee", borderRadius: 14, padding: 14, background: "#fafafa" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                    <div style={{ fontWeight: 700 }}>Параметры полиса</div>
+                    <div style={{ fontWeight: 700, display: "flex", alignItems: "center", gap: 10 }}>
+                        Параметры полиса
+                        {isLoading ? (
+                            <span
+                                style={{
+                                    fontSize: 12,
+                                    padding: "4px 8px",
+                                    borderRadius: 999,
+                                    background: "rgba(11,91,211,0.10)",
+                                    color: "#0b5bd3",
+                                    fontWeight: 700,
+                                }}
+                            >
+                Расчёт...
+              </span>
+                        ) : null}
+                    </div>
+
                     <div style={{ opacity: 0.6 }}>⌃</div>
                 </div>
 
-                <div style={{ display: "grid", gap: 6 }}>
+                <div style={{ display: "grid", gap: 6, opacity: isLoading ? 0.6 : 1 }}>
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                         <span style={{ opacity: 0.7 }}>Премия по основной программе</span>
                         <b>

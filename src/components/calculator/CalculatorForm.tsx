@@ -35,6 +35,9 @@ export function CalculatorForm({ program }: Props) {
     const runFormulaMut = useMutation({
         mutationFn: (payload: unknown) => runFormula(FORMULA_ID, payload),
     });
+
+    const isLoading = runFormulaMut.isPending ?? runFormulaMut.isLoading;
+
     const methods = useForm<CalculatorFormValues>({
         mode: "onChange",
         defaultValues: {}, // позже можно проставлять дефолты
@@ -46,7 +49,6 @@ export function CalculatorForm({ program }: Props) {
     async function onSubmit(values: CalculatorFormValues) {
         try {
             const payload = buildPayload(values);
-
             const res = await runFormulaMut.mutateAsync(payload);
             setFormulaRes(res);
 
@@ -119,23 +121,24 @@ export function CalculatorForm({ program }: Props) {
 
                         <button
                             type="submit"
+                            disabled={isLoading}
                             style={{
                                 height: 44,
                                 borderRadius: 10,
                                 border: "none",
-                                background: "#0b5bd3",
+                                background: isLoading ? "rgba(11,91,211,0.55)" : "#0b5bd3",
                                 color: "white",
                                 fontWeight: 700,
-                                cursor: "pointer",
+                                cursor: isLoading ? "not-allowed" : "pointer",
                             }}
                         >
-                            Рассчитать
+                            {isLoading ? "Расчёт..." : "Рассчитать"}
                         </button>
                     </div>
                 </div>
 
                 {/* Правая часть */}
-                <CalculatorSummary formulaRes={formulaRes} />
+                <CalculatorSummary formulaRes={formulaRes} isLoading={isLoading} />
 
             </form>
         </FormProvider>
