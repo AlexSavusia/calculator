@@ -88,15 +88,15 @@ export function CalculatorForm({ program }: Props) {
                             name="srok_deystviya_polisa_let"
                             label="Срок действия полиса, лет"
                             min={5}
-                            max={30}
+                            max={35}
                             step={1}
                         />
 
                         <NumberSliderField
                             name="srok_uplaty_vznosov_let"
                             label="Срок уплаты взносов, лет"
-                            min={1}
-                            max={20}
+                            min={5}
+                            max={35}
                             step={1}
                         />
 
