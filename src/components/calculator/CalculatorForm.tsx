@@ -14,6 +14,7 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { runFormula, type FormulaRunResponse } from "../../api";
 import { buildPayload } from "./buildPayload";
+import { RiskSumField } from "./fields/RiskSumField";
 
 // import { calculateProgram } from "../../api"; // если есть
 
@@ -26,6 +27,36 @@ type Props = {
 };
 
 const FORMULA_ID = "019c054f-a78d-726e-94a0-a7c1a6fc58e2";
+
+function extractFormulaErrors(errors: Record<string, unknown> | undefined | null): string[] {
+    if (!errors || typeof errors !== "object") return [];
+
+    const out: string[] = [];
+    for (const [key, val] of Object.entries(errors)) {
+        if (val === null || val === undefined) continue;
+
+        if (typeof val === "string") {
+            const msg = val.trim();
+            if (msg) out.push(msg);
+            continue;
+        }
+
+        // если бек прислал массив сообщений
+        if (Array.isArray(val)) {
+            for (const item of val) {
+                if (typeof item === "string" && item.trim()) out.push(item.trim());
+            }
+            continue;
+        }
+
+        // если бек прислал объект/число — покажем как текст
+        out.push(`${key}: ${String(val)}`);
+    }
+
+    // убрать дубли
+    return Array.from(new Set(out));
+}
+
 
 
 export function CalculatorForm({ program }: Props) {
@@ -40,7 +71,21 @@ export function CalculatorForm({ program }: Props) {
 
     const methods = useForm<CalculatorFormValues>({
         mode: "onChange",
-        defaultValues: {}, // позже можно проставлять дефолты
+        defaultValues: {
+            strahovaya_summa: 3_500_000,
+
+            ex_death_flag: false,
+            ex_death_sum: 450_000,
+
+            ex_body_flag: false,
+            ex_body_sum: 1_000_000,
+
+            ex_trauma_2_flag: false,
+            ex_trauma_2_sum: 450_000,
+
+            ex_trauma_3_flag: false,
+            ex_trauma_3_sum: 450_000,
+        },
     });
 
     // возьмём dict-поля из программы
@@ -50,7 +95,19 @@ export function CalculatorForm({ program }: Props) {
         try {
             const payload = buildPayload(values);
             const res = await runFormulaMut.mutateAsync(payload);
+
+// ✅ если есть errors — показать toast
+            const errs = extractFormulaErrors(res.errors as any);
+            if (errs.length) {
+                toast.error(errs.join("\n")); // можно '\n' чтобы красиво
+                // по желанию: НЕ обновлять result при ошибке
+                setFormulaRes(res);
+                return;
+            }
+
             setFormulaRes(res);
+            toast.success("Рассчитано ✅");
+
 
             console.log("payload", payload);
             console.log("formula run res", res);
@@ -93,15 +150,13 @@ export function CalculatorForm({ program }: Props) {
                         />
 
                         {/* Страховая сумма — по дизайну может быть инпут + слайдер */}
-                        <div style={{ display: "grid", gap: 8 }}>
-                            <div style={{ fontWeight: 600 }}>Страховая сумма</div>
-                            <input
-                                type="number"
-                                {...methods.register("strahovaya_summa", { valueAsNumber: true })}
-                                placeholder="100000"
-                                style={{ height: 40, borderRadius: 8, border: "1px solid #ddd", padding: "0 12px" }}
-                            />
-                        </div>
+                        <NumberSliderField
+                            name="strahovaya_summa"
+                            label="Страховая сумма"
+                            min={100_000}
+                            max={10_000_000}
+                            step={100_000}
+                        />
 
 
                         {/* Застрахованный */}
@@ -115,6 +170,45 @@ export function CalculatorForm({ program }: Props) {
                                     { id: "male", name: "Мужчина" },
                                     { id: "female", name: "Женщина" },
                                 ]}
+                            />
+                        </div>
+                        <div style={{ display: "grid", gap: 12 }}>
+                            <div style={{ fontWeight: 700 }}>Дополнительные риски</div>
+
+                            <RiskSumField
+                                label="Смерть НС"
+                                flagName="ex_death_flag"
+                                sumName="ex_death_sum"
+                                defaultSum={450_000}
+                                max={5_000_000}
+                                step={50_000}
+                            />
+
+                            <RiskSumField
+                                label="Тяжкие телесные"
+                                flagName="ex_body_flag"
+                                sumName="ex_body_sum"
+                                defaultSum={1_000_000}
+                                max={5_000_000}
+                                step={50_000}
+                            />
+
+                            <RiskSumField
+                                label="Травма 2"
+                                flagName="ex_trauma_2_flag"
+                                sumName="ex_trauma_2_sum"
+                                defaultSum={450_000}
+                                max={5_000_000}
+                                step={50_000}
+                            />
+
+                            <RiskSumField
+                                label="Травма 3"
+                                flagName="ex_trauma_3_flag"
+                                sumName="ex_trauma_3_sum"
+                                defaultSum={450_000}
+                                max={5_000_000}
+                                step={50_000}
                             />
                         </div>
 

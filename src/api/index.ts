@@ -163,8 +163,10 @@ function normalizeCreateProgramTemplate(rq: CreateProgramTemplate): CreateProgra
 
 
 export type FormulaRunResponse = {
-    result: Record<string, number>;
+    result?: Record<string, number>;
+    errors?: Record<string, unknown>;
 };
+
 
 export const runFormula = async (
     formulaId: string,

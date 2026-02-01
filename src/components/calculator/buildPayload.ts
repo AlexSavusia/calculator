@@ -31,6 +31,10 @@ function genderToMF(x: unknown): "M" | "F" | "" {
     return "";
 }
 
+function boolStr(x: unknown) {
+    return String(Boolean(x));
+}
+
 export function buildPayload(values: CalculatorFormValues) {
 
     return {
@@ -46,6 +50,18 @@ export function buildPayload(values: CalculatorFormValues) {
             gender: genderToMF(values.pol_strahovatelya),
             mode: toStr(values.tip_rascheta),
             ins_sum: toNumStr(values.strahovaya_summa),
+
+            ex_death_flag: boolStr(values.ex_death_flag),
+            ex_death_sum: toNumStr(values.ex_death_sum),
+
+            ex_body_flag: boolStr(values.ex_body_flag),
+            ex_body_sum: toNumStr(values.ex_body_sum),
+
+            ex_trauma_2_flag: boolStr(values.ex_trauma_2_flag),
+            ex_trauma_2_sum: toNumStr(values.ex_trauma_2_sum),
+
+            ex_trauma_3_flag: boolStr(values.ex_trauma_3_flag),
+            ex_trauma_3_sum: toNumStr(values.ex_trauma_3_sum),
 
         },
     };
