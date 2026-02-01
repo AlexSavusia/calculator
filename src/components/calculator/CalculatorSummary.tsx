@@ -29,9 +29,11 @@ export function CalculatorSummary({ formulaRes, isLoading }: Props) {
     const totalSum = formulaRes?.result?.Premium_all;
     const beta = formulaRes?.result?.beta;
     const invBeta = formulaRes?.result?.inv_beta;
+    const inSum = formulaRes?.result?.ins_sum;
+
 
 // если гарантированная норма доходности будет в args — достаём:
-    const garantIncome = payload?.args?.garant_income_percent;
+    const garantIncome = formulaRes?.result?.garant_income_percent;
 
 
     return (
@@ -74,6 +76,14 @@ export function CalculatorSummary({ formulaRes, isLoading }: Props) {
                         <b>
                             {typeof totalSum === "number"
                                 ? totalSum.toLocaleString("ru-RU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                                : "—"}
+                        </b>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <span style={{ opacity: 0.7 }}>Страховая сумма</span>
+                        <b>
+                            {typeof inSum === "number"
+                                ? inSum.toLocaleString("ru-RU", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
                                 : "—"}
                         </b>
                     </div>
