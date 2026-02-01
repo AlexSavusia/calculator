@@ -95,10 +95,10 @@ export function CalculatorForm({ program }: Props) {
 
     const sumLabel =
         tipRascheta === "premium"
-            ? "Страховая сумма"
+            ? "Страховая премия"
             : tipRascheta === "sum"
-                ? "Страховая премия"
-                : "Страховая сумма";
+                ? "Страховая  сумма"
+                : "Страховая премия";
 
     // возьмём dict-поля из программы
     const dictFields = program.fields.filter(isDictField);
