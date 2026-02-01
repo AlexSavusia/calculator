@@ -29,7 +29,7 @@ export function CalculatorSummary({ formulaRes, isLoading }: Props) {
     const totalSum = formulaRes?.result?.Premium_all;
     const beta = formulaRes?.result?.beta;
     const invBeta = formulaRes?.result?.inv_beta;
-    const inSum = formulaRes?.result?.ins_sum;
+    const inSum = formulaRes?.result?.Sum;
 
 
 // если гарантированная норма доходности будет в args — достаём:
