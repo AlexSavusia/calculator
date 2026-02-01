@@ -1,6 +1,6 @@
 // src/components/calculator/CalculatorForm.tsx
 
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 import toast from "react-hot-toast";
 import type { Program, ProgramDictionaryField } from "../../api/types";
 import type { CalculatorFormValues } from "./types";
@@ -27,6 +27,7 @@ type Props = {
 };
 
 const FORMULA_ID = "019c054f-a78d-726e-94a0-a7c1a6fc58e2";
+
 
 function extractFormulaErrors(errors: Record<string, unknown> | undefined | null): string[] {
     if (!errors || typeof errors !== "object") return [];
@@ -87,12 +88,29 @@ export function CalculatorForm({ program }: Props) {
             ex_trauma_3_sum: 450_000,
         },
     });
+    const tipRascheta = useWatch({
+        control: methods.control,
+        name: "tip_rascheta",
+    }) as string | undefined;
+
+    const sumLabel =
+        tipRascheta === "premium"
+            ? "Страховая сумма"
+            : tipRascheta === "sum"
+                ? "Страховая премия"
+                : "Страховая сумма";
 
     // возьмём dict-поля из программы
     const dictFields = program.fields.filter(isDictField);
 
     async function onSubmit(values: CalculatorFormValues) {
         try {
+            const t2 = Boolean((values as any).ex_trauma_2_flag);
+            const t3 = Boolean((values as any).ex_trauma_3_flag);
+            if (t2 && t3) {
+                toast.error("Можно выбрать только одну травму: Травма 2 или Травма 3");
+                return;
+            }
             const payload = buildPayload(values);
             const res = await runFormulaMut.mutateAsync(payload);
 
@@ -152,7 +170,7 @@ export function CalculatorForm({ program }: Props) {
                         {/* Страховая сумма — по дизайну может быть инпут + слайдер */}
                         <NumberSliderField
                             name="strahovaya_summa"
-                            label="Страховая сумма"
+                            label={sumLabel}
                             min={100_000}
                             max={10_000_000}
                             step={100_000}
@@ -200,6 +218,7 @@ export function CalculatorForm({ program }: Props) {
                                 defaultSum={450_000}
                                 max={5_000_000}
                                 step={50_000}
+                                mutexWith="ex_trauma_3_flag"
                             />
 
                             <RiskSumField
@@ -209,6 +228,7 @@ export function CalculatorForm({ program }: Props) {
                                 defaultSum={450_000}
                                 max={5_000_000}
                                 step={50_000}
+                                mutexWith="ex_trauma_2_flag"
                             />
                         </div>
 

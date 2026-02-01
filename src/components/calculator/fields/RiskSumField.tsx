@@ -3,12 +3,13 @@ import { Controller, useFormContext, useWatch } from "react-hook-form";
 
 type Props = {
     label: string;
-    flagName: string; // ex_death_flag
-    sumName: string;  // ex_death_sum
+    flagName: string;
+    sumName: string;
     min?: number;
     max?: number;
     step?: number;
     defaultSum?: number;
+    mutexWith?: string; // например "ex_trauma_3_flag"
 };
 
 export function RiskSumField({
@@ -19,6 +20,7 @@ export function RiskSumField({
                                  max = 5_000_000,
                                  step = 50_000,
                                  defaultSum = 450_000,
+                                 mutexWith,
                              }: Props) {
     const { control, setValue } = useFormContext();
     const enabled = useWatch({ control, name: flagName }) as boolean | undefined;
@@ -36,11 +38,18 @@ export function RiskSumField({
                             checked={Boolean(field.value)}
                             onChange={(e) => {
                                 const next = e.target.checked;
+
+                                // ✅ если включаем этот — выключаем второй
+                                if (next && mutexWith) {
+                                    setValue(mutexWith, false, { shouldDirty: true, shouldTouch: true });
+                                }
+
                                 field.onChange(next);
+
                                 // если включили и суммы нет — выставим дефолт
                                 if (next) {
-                                    const current = useWatch({ control, name: sumName }) as any;
-                                    const has = typeof current === "number" && Number.isFinite(current) && current > 0;
+                                    const cur = useWatch({ control, name: sumName }) as any;
+                                    const has = typeof cur === "number" && Number.isFinite(cur) && cur > 0;
                                     if (!has) setValue(sumName, defaultSum, { shouldDirty: true, shouldTouch: true });
                                 }
                             }}
@@ -50,6 +59,7 @@ export function RiskSumField({
                 )}
             />
 
+            {/* ...вторая часть (ползунок суммы) без изменений */}
             <Controller
                 control={control}
                 name={sumName}
@@ -60,9 +70,7 @@ export function RiskSumField({
 
                     return (
                         <div style={{ display: "grid", gap: 6, opacity: disabled ? 0.55 : 1 }}>
-                            <div style={{ fontSize: 12, opacity: 0.7 }}>
-                                {value.toLocaleString("ru-RU")}{" "}
-                            </div>
+                            <div style={{ fontSize: 12, opacity: 0.7 }}>{value.toLocaleString("ru-RU")}</div>
 
                             <input
                                 type="range"
