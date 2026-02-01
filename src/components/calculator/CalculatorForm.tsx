@@ -172,8 +172,8 @@ export function CalculatorForm({ program }: Props) {
                             name="strahovaya_summa"
                             label={sumLabel}
                             min={100_000}
-                            max={10_000_000}
-                            step={100_000}
+                            max={5_000_000}
+                            step={50_000}
                         />
 
 
