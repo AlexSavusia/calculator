@@ -3,7 +3,6 @@ import type { CalculatorFormValues } from "./types";
 import { calcAge360 } from "./utils/days360";
 
 const CONST_ARGS = {
-    i0: "0.00643403011000343",
     iMax: "480",
     mortality_coeff: "0.30",
     uw_life: "1,5234375",
